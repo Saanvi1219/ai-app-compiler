@@ -351,42 +351,33 @@ def compile_app(prompt: str):
         2
     )
     confidence = 95
-    ambiguity = intent.get(
-        "ambiguity",
-        []
-        )
-    conflicts = intent.get(
-        "conflicts",
-        []
-        )
-    assumptions = intent.get( 
-                             "assumptions",
-                             []
-                             )
-    validation_errors = []
-    if validation:
-        validation_errors = validation.get(
+    ambiguity = intent.get("ambiguity", [])
+    conflicts = intent.get("conflicts", [])
+    assumptions = intent.get("assumptions", [])
+    validation_errors=[]
+    if isinstance(validation,dict):
+        validation_errors=validation.get(
             "errors",
             []
             )
-        if len(ambiguity) > 0:
+        if ambiguity:
             confidence -= 35
-            if len(conflicts) > 0:
+            if conflicts:
                 confidence -= 20
-                if len(validation_errors) > 0:
+                if validation_errors:
                     confidence -= 25
-                    if len(assumptions) > 0:
+                    if assumptions:
                         confidence -= 5
-                        confidence = max(
+                        confidence=max(
                             confidence,
                             30
                             )
-                        quality = "strong"
-                        if confidence < 80:
-                            quality = "moderate"
-                            if confidence < 60:
-                                quality = "weak"
-                                chaos = 100 - confidence
+                        quality="strong"
+                        if confidence<80:
+                            quality="moderate"
+                            if confidence<60:
+                                quality="weak"
+                                chaos=100-confidence
                             return {
 
         "pipeline": [
