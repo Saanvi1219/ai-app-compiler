@@ -1,4 +1,3 @@
-
 import time
 
 from backend.pipeline.intent_extraction import extract_intent
@@ -13,6 +12,44 @@ def compile_app(prompt: str):
 
     start = time.time()
 
+    # ====================================
+    # VAGUE PROMPT EXPANSION
+    # ====================================
+
+    prompt_lower = prompt.lower().strip()
+
+    if prompt_lower == "dashboard":
+
+        prompt = """
+        Build a business analytics dashboard
+        with authentication, charts,
+        reports, KPIs and role access
+        """
+
+    elif prompt_lower == "analytics":
+
+        prompt = """
+        Build an analytics platform with
+        dashboards, reports, charts,
+        users and notifications
+        """
+
+    elif prompt_lower == "portal":
+
+        prompt = """
+        Build a portal with authentication,
+        dashboard, users, reports
+        and permissions
+        """
+
+    elif prompt_lower == "app":
+
+        prompt = """
+        Build a productivity application
+        with login, dashboard,
+        notifications and settings
+        """
+
     intent = extract_intent(prompt)
 
     # ====================================
@@ -24,37 +61,12 @@ def compile_app(prompt: str):
         return {
 
             "pipeline": [
-
-                {
-                    "stage": "01 Intent Extraction",
-                    "status": "completed_with_conflicts"
-                },
-
-                {
-                    "stage": "02 System Design",
-                    "status": "rejected"
-                },
-
-                {
-                    "stage": "03 Schema Generation",
-                    "status": "rejected"
-                },
-
-                {
-                    "stage": "04 Refinement",
-                    "status": "rejected"
-                },
-
-                {
-                    "stage": "05 Repair",
-                    "status": "not_attempted"
-                },
-
-                {
-                    "stage": "06 Runtime Simulation",
-                    "status": "skipped"
-                }
-
+                {"stage": "01 Intent Extraction", "status": "completed_with_conflicts"},
+                {"stage": "02 System Design", "status": "rejected"},
+                {"stage": "03 Schema Generation", "status": "rejected"},
+                {"stage": "04 Refinement", "status": "rejected"},
+                {"stage": "05 Repair", "status": "not_attempted"},
+                {"stage": "06 Runtime Simulation", "status": "skipped"},
             ],
 
             "app": {
@@ -63,19 +75,14 @@ def compile_app(prompt: str):
             },
 
             "validation": {
-
                 "valid": False,
-
                 "errors": [
-
                     {
                         "type": "conflicting_requirement",
                         "message": x
                     }
-
                     for x in intent["conflicts"]
-
-                ]
+                ],
             },
 
             "conflicts": intent["conflicts"],
@@ -88,12 +95,8 @@ def compile_app(prompt: str):
             "clarification_needed": True,
 
             "clarification_questions": [
-
                 "Which requirement should take priority?"
-
             ],
-
-            
 
             "repair_log": [],
 
@@ -104,12 +107,19 @@ def compile_app(prompt: str):
                 "roles": 0
             },
 
+            "insight": {
+                "confidence": 35,
+                "chaos": 65,
+                "quality": "weak",
+                "recommendation": "Conflicting requirements detected. Clarification required."
+            },
+
             "metrics": {
-                "latency_ms": 0,
+                "latency_ms": round((time.time() - start) * 1000, 2),
                 "retries": 0,
                 "repair_count": 0,
-                "success": False
-            }
+                "success": False,
+            },
 
         }
 
@@ -117,50 +127,17 @@ def compile_app(prompt: str):
     # SINGLE PROMPT REJECTION
     # ====================================
 
-    if (
-
-        intent["domain"] == "unknown"
-
-        and
-
-        len(intent["ambiguity"]) > 0
-
-    ):
+    if intent["domain"] == "unknown" and len(intent.get("ambiguity", [])) > 0:
 
         return {
 
             "pipeline": [
-
-                {
-                    "stage": "01 Intent Extraction",
-                    "status": "failed"
-                },
-
-                {
-                    "stage": "02 System Design",
-                    "status": "rejected"
-                },
-
-                {
-                    "stage": "03 Schema Generation",
-                    "status": "rejected"
-                },
-
-                {
-                    "stage": "04 Refinement",
-                    "status": "rejected"
-                },
-
-                {
-                    "stage": "05 Repair",
-                    "status": "not_attempted"
-                },
-
-                {
-                    "stage": "06 Runtime Simulation",
-                    "status": "skipped"
-                }
-
+                {"stage": "01 Intent Extraction", "status": "failed"},
+                {"stage": "02 System Design", "status": "rejected"},
+                {"stage": "03 Schema Generation", "status": "rejected"},
+                {"stage": "04 Refinement", "status": "rejected"},
+                {"stage": "05 Repair", "status": "not_attempted"},
+                {"stage": "06 Runtime Simulation", "status": "skipped"},
             ],
 
             "app": {
@@ -169,17 +146,13 @@ def compile_app(prompt: str):
             },
 
             "validation": {
-
                 "valid": False,
-
                 "errors": [
-
                     {
                         "type": "single_prompt_rejection",
                         "message": "Insufficient structured intent"
                     }
-
-                ]
+                ],
             },
 
             "assumptions": intent.get(
@@ -190,13 +163,9 @@ def compile_app(prompt: str):
             "clarification_needed": True,
 
             "clarification_questions": [
-
                 "What type of application should be built?",
-
                 "Who are the users or roles?",
-
-                "Which features are required?"
-
+                "Which features are required?",
             ],
 
             "repair_log": [],
@@ -209,41 +178,28 @@ def compile_app(prompt: str):
             },
 
             "expected_input": {
-
                 "required": [
-
                     "application domain",
                     "features",
                     "users or roles",
-                    "workflow"
-
+                    "workflow",
                 ],
-
-                "example":
-                "Build child rescue platform with NGO workflows, dashboard and facial recognition"
-
+                "example": "Build child rescue platform with NGO workflows, dashboard and facial recognition",
             },
 
             "insight": {
-
                 "confidence": 0,
-
                 "chaos": 100,
-
-                "recommendation":
-                "Prompt rejected before architecture generation"
-
+                "quality": "weak",
+                "recommendation": "Prompt rejected before architecture generation"
             },
-            
 
             "metrics": {
-
-                "latency_ms": 0,
+                "latency_ms": round((time.time() - start) * 1000, 2),
                 "retries": 0,
                 "repair_count": 0,
-                "success": False
-
-            }
+                "success": False,
+            },
 
         }
 
@@ -267,28 +223,21 @@ def compile_app(prompt: str):
     retries = 0
 
     runtime = {
-
         "executable": False,
-
         "runtime_summary": {
-
             "pages": 0,
             "apis": 0,
             "tables": 0,
             "roles": 0
-
-        }
-
+        },
     }
 
     fatal_errors = [
-
         "invalid_prompt",
         "invalid_json",
         "hallucinated_field",
         "schema_mismatch",
-        "security_violation"
-
+        "security_violation",
     ]
 
     error_types = []
@@ -296,19 +245,13 @@ def compile_app(prompt: str):
     if not validation["valid"]:
 
         error_types = [
-
             x["type"]
-
             for x in validation["errors"]
-
         ]
 
     if any(
-
         err in fatal_errors
-
         for err in error_types
-
     ):
 
         repair_log.append(
@@ -317,13 +260,7 @@ def compile_app(prompt: str):
 
     else:
 
-        while (
-
-            not validation["valid"]
-
-            and retries < 3
-
-        ):
+        while not validation["valid"] and retries < 3:
 
             repaired = repair_config(
                 config,
@@ -347,83 +284,98 @@ def compile_app(prompt: str):
         )
 
     latency = round(
-        (time.time()-start)*1000,
+        (time.time() - start) * 1000,
         2
     )
+
+    # ====================================
+    # CONFIDENCE / QUALITY SCORING
+    # ====================================
+
     confidence = 95
-    ambiguity = intent.get("ambiguity", [])
-    conflicts = intent.get("conflicts", [])
-    assumptions = intent.get("assumptions", [])
-    validation_errors=[]
-    if isinstance(validation,dict):
-        validation_errors=validation.get(
+
+    ambiguity = intent.get(
+        "ambiguity",
+        []
+    )
+
+    conflicts = intent.get(
+        "conflicts",
+        []
+    )
+
+    assumptions = intent.get(
+        "assumptions",
+        []
+    )
+
+    validation_errors = []
+
+    if isinstance(
+        validation,
+        dict
+    ):
+
+        validation_errors = validation.get(
             "errors",
             []
-            )
-        if ambiguity:
-            confidence -= 35
-            if conflicts:
-                confidence -= 20
-                if validation_errors:
-                    confidence -= 25
-                    if assumptions:
-                        confidence -= 5
-                        confidence=max(
-                            confidence,
-                            30
-                            )
-                        quality="strong"
-                        if confidence<80:
-                            quality="moderate"
-                            if confidence<60:
-                                quality="weak"
-                                chaos=100-confidence
-                            return {
+        )
+
+    if ambiguity:
+
+        confidence -= 35
+
+    if conflicts:
+
+        confidence -= 20
+
+    if validation_errors:
+
+        confidence -= 25
+
+    if assumptions:
+
+        confidence -= 5
+
+    confidence = max(
+        confidence,
+        30
+    )
+
+    quality = "strong"
+
+    if confidence < 80:
+
+        quality = "moderate"
+
+    if confidence < 60:
+
+        quality = "weak"
+
+    chaos = 100 - confidence
+
+    # ====================================
+    # FINAL OUTPUT
+    # ====================================
+
+    return {
 
         "pipeline": [
-
+            {"stage": "01 Intent Extraction", "status": "completed"},
+            {"stage": "02 System Design", "status": "completed"},
+            {"stage": "03 Schema Generation", "status": "completed"},
             {
-                "stage":"01 Intent Extraction",
-                "status":"completed"
+                "stage": "04 Refinement",
+                "status": "completed" if validation["valid"] else "failed"
             },
-
             {
-                "stage":"02 System Design",
-                "status":"completed"
+                "stage": "05 Repair",
+                "status": "completed" if repair_log else "not_required"
             },
-
             {
-                "stage":"03 Schema Generation",
-                "status":"completed"
+                "stage": "06 Runtime Simulation",
+                "status": "passed" if runtime["executable"] else "failed"
             },
-
-            {
-                "stage":"04 Refinement",
-                "status":
-                "completed"
-                if validation["valid"]
-                else
-                "failed"
-            },
-
-            {
-                "stage":"05 Repair",
-                "status":
-                "completed"
-                if repair_log
-                else
-                "not_required"
-            },
-
-            {
-                "stage":"06 Runtime Simulation",
-                "status":
-                "passed"
-                if runtime["executable"]
-                else
-                "failed"
-            }
-
         ],
 
         "app": config["app"],
@@ -444,112 +396,67 @@ def compile_app(prompt: str):
 
         "clarification_needed": False,
 
-        "runtime":
-        runtime["runtime_summary"],
+        "runtime": runtime["runtime_summary"],
 
         "insight": {
-
             "confidence": confidence,
-
             "chaos": chaos,
-            "quality":quality,
-
-            "recommendation":
-
-
-            "Prompt quality is strong"
-
-            if validation["valid"]
-
-            else
-
-            "Unsafe or invalid request detected"
-
+            "quality": quality,
+            "recommendation": (
+                "Prompt quality is strong"
+                if validation["valid"]
+                else
+                "Unsafe or invalid request detected"
+            ),
         },
 
         "adaptive_execution": {
-            "prompt_complexity":
-            "high"
-            if (
-                 len(
-            intent["features"]
-        ) > 3
-         or
-
-        len(
-            intent.get(
-                "conflicts",
-                []
-            )
-        ) > 0
-
-            )
-             else
-                "low",
-                "selected_strategy":
-                  "high_quality_mode"
-                  if(
-                       len(
-                            intent["features"]
-                  )>3
-                   or
-                     len(
-                         intent.get(
-                              "conflicts",
-
-                               []
-                                 )
-                                 ) > 0
-                  )
-                  else
-                   "fast_mode",
-                    "estimated_cost_units":
-                    5
-                        if (
-                                        len(
-                                                        intent["features"]
-                                        )>3
-                        )
-                        else
-                        2,
-                        "estimated_quality_score":
-                        confidence,
-                        "estimated_latency_class":
-                        "low"
-                        if latency < 50
-                         else
-                           "medium"
-                           },
-                             "tradeoff_reason":
-                             "System dynamically adapts execution strategy. Simple requests use fast mode with minimal validation cost, while complex requests activate selective repair and deeper validation to maximize output quality without blindly increasing compute cost.",
-
-
-
-
-
-
-
-
-
-
-        "metrics": {
-
-            "latency_ms": latency,
-
-            "retries": retries,
-
-            "repair_count": len(
-                repair_log
+            "prompt_complexity": (
+                "high"
+                if (
+                    len(intent.get("features", [])) > 3
+                    or
+                    len(intent.get("conflicts", [])) > 0
+                )
+                else
+                "low"
             ),
 
-            "success":
+            "selected_strategy": (
+                "high_quality_mode"
+                if (
+                    len(intent.get("features", [])) > 3
+                    or
+                    len(intent.get("conflicts", [])) > 0
+                )
+                else
+                "fast_mode"
+            ),
 
-            validation["valid"]
+            "estimated_cost_units": (
+                5
+                if len(intent.get("features", [])) > 3
+                else
+                2
+            ),
 
-            and
+            "estimated_quality_score": confidence,
 
-            runtime["executable"]
+            "estimated_latency_class": (
+                "low"
+                if latency < 50
+                else
+                "medium"
+            ),
+        },
 
-        }
+        "tradeoff_reason": "System dynamically adapts execution strategy. Simple requests use fast mode with minimal validation cost, while complex requests activate selective repair and deeper validation to maximize output quality without blindly increasing compute cost.",
+
+        "metrics": {
+            "latency_ms": latency,
+            "retries": retries,
+            "repair_count": len(repair_log),
+            "success": validation["valid"] and runtime["executable"],
+        },
 
     }
