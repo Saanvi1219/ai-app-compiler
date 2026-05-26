@@ -28,7 +28,7 @@ output.innerText=
 try{
 
 const response=await fetch(
-"https://ai-app-compiler-1-6q6t.onrender.com/generate",
+"https://ai-app-compiler-7qlm.onrender.com/generate",
 {
 
 method:"POST",
@@ -290,7 +290,7 @@ try{
 
 const response=
 await fetch(
-"https://ai-app-compiler-1-6q6t.onrender.com/evaluate"
+"https://ai-app-compiler-7qlm.onrender.com/evaluate",
 );
 
 
