@@ -49,24 +49,28 @@ prompt:promptInput.value
 
 const data=await response.json();
 
+console.log("BACKEND RESPONSE:",data);
 
-if(!data){
+if(
+!data ||
+typeof data !== "object"
+){
 
 throw new Error(
-"No response from backend"
+"Backend returned invalid data"
 );
 
 }
 
-
-
-
 latestData=data;
 
+showData(
+data || {}
+);
 
-showData(data);
-
-updateMeters(data);
+updateMeters(
+data || {}
+);
 
 
 generateBtn.innerText=
@@ -74,23 +78,25 @@ generateBtn.innerText=
 
 
 }
-
-
 catch(error){
 
 generateBtn.innerText=
 "Generate Architecture";
 
-output.innerText=
-"Error:\n\n"+
-error.message;
-
 console.log(error);
 
+output.innerText=
+"Error:\n\n"+
+(
+error.message ||
+JSON.stringify(error)
+);
+
+}
+
 }
 
 
-}
 
 
 
@@ -322,14 +328,19 @@ evaluateBtn.innerText=
 
 }
 
-
 catch(error){
-
-output.innerText=
-error;
 
 evaluateBtn.innerText=
 "Run Evaluation";
+
+console.log(error);
+
+output.innerText=
+"Error:\n\n"+
+(
+error.message ||
+JSON.stringify(error)
+);
 
 }
 
