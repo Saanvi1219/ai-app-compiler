@@ -1,0 +1,49 @@
+{
+  "normal_prompts":[
+
+    "Build child rescue platform with NGO workflows and facial recognition",
+
+    "Build ecommerce platform with login and payments",
+
+    "Build CRM with analytics dashboard",
+
+    "Create healthcare triage system",
+
+    "Build booking platform",
+
+    "Build fintech portfolio dashboard",
+
+    "Create learning management system",
+
+    "Create support ticket system",
+
+    "Build event management system",
+
+    "Create disaster response platform"
+
+  ],
+
+  "edge_case_prompts":[
+
+    "Build app",
+
+    "",
+
+    "Dashboard",
+
+    "Build CRM without users",
+
+    "Create payments without products",
+
+    "Admin dashboard without admin role",
+
+    "Build child rescue but no authority",
+
+    "Create login without users",
+
+    "Analytics",
+
+    "Random"
+
+  ]
+}

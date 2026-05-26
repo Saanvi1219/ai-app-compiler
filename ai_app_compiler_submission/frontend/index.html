@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Compiler Studio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<div class="ambient ambient1"></div>
+<div class="ambient ambient2"></div>
+
+<nav>
+
+<div class="logo">
+
+<div class="logo-dot"></div>
+<span>Compiler Studio</span>
+
+</div>
+
+<div class="nav-links">
+
+<a href="#studio">Studio</a>
+<a href="#pipeline">Pipeline</a>
+<a href="#pricing">Plans</a>
+<a href="#faq">FAQ</a>
+
+</div>
+
+<button id="themeToggle">
+Night Mode
+</button>
+
+</nav>
+
+
+<section class="hero">
+
+<div class="hero-left">
+
+<p class="eyebrow">
+
+Natural Language → Executable Architecture
+
+</p>
+
+<h1>
+
+Design software like a compiler.
+
+</h1>
+
+<p class="hero-sub">
+
+Controlled AI generation with validation, repair,
+execution awareness and reliability.
+
+</p>
+
+<div class="hero-buttons">
+
+<button class="primary">
+
+Open Studio
+
+</button>
+
+<button class="secondary">
+
+Watch Replay
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="hero-right">
+
+
+<div class="video-container">
+
+<div class="browser-top">
+
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+
+<div class="lines">
+
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
+</div>
+
+<div class="nodes">
+
+<div>
+
+<h3>Compiler Status</h3>
+
+<p id="compileStatus">
+
+Building Architecture...
+
+</p>
+
+</div>
+
+
+<div>
+
+<h3>Risk Scanner</h3>
+
+<p id="riskLevel">
+
+Standard
+
+</p>
+
+</div>
+
+
+<div>
+
+<h3>AI Confidence</h3>
+
+<p id="confidenceLive">
+
+92%
+
+</p>
+
+</div>
+
+
+<div>
+
+<h3>Execution Mode</h3>
+
+<p id="executionMode">
+
+Fast Mode
+
+</p>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<section class="idea-section">
+
+<div>
+
+<p class="section-mini">
+
+Idea DNA
+
+</p>
+
+<h2>
+
+Don't know where to start?
+
+</h2>
+
+</div>
+
+
+<div class="idea-grid">
+
+<button>
+
+Social Impact
+
+</button>
+
+<button>
+
+Fintech
+
+</button>
+
+<button>
+
+Healthcare
+
+</button>
+
+<button>
+
+Disaster Response
+
+</button>
+
+</div>
+
+</section>
+
+
+
+
+<section id="studio" class="studio">
+
+<div class="studio-left">
+
+<p class="section-mini">
+
+Live Studio
+
+</p>
+
+<h2>
+
+Describe your product
+
+</h2>
+
+
+<textarea id="promptInput">
+
+Build a child rescue service platform with login, facial recognition, dashboard, emergency alerts and NGO workflows.
+
+</textarea>
+
+
+<div class="studio-buttons">
+
+<button id="generateBtn">
+
+Generate Architecture
+
+</button>
+
+
+<button id="evaluateBtn">
+
+Run Evaluation
+
+</button>
+
+
+</div>
+
+
+
+<div class="confidence-box">
+
+<div>
+
+<span>
+
+Confidence
+
+</span>
+
+<div class="bar">
+
+<div id="confidenceBar">
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div>
+
+<span>
+
+Chaos
+
+</span>
+
+<div class="bar chaos">
+
+<div id="chaosBar">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="studio-right">
+<div class="brain-map">
+
+<div class="floating-card card1">
+
+<h3>
+Intent
+</h3>
+
+<p id="intentText">
+Waiting...
+</p>
+
+<span id="intentConfidence">
+Confidence:0%
+</span>
+
+</div>
+
+
+
+<div class="floating-card card2">
+
+<h3>
+Runtime
+</h3>
+
+<p id="runtimePages">
+Pages:0
+</p>
+
+<span id="runtimeApis">
+APIs:0
+</span>
+
+</div>
+
+
+
+<div class="floating-card card3">
+
+<h3>
+Repair
+</h3>
+
+<p id="repairCount">
+Fixes:0
+</p>
+
+<span id="retryCount">
+Retries:0
+</span>
+
+</div>
+
+
+
+<div class="center">
+
+AI Compiler
+
+</div>
+
+</div>
+
+
+</section>
+
+
+
+
+<section id="pipeline">
+
+<p class="section-mini">
+
+Compiler Flow
+
+</p>
+
+<h2>
+
+Pipeline
+
+</h2>
+
+
+<div class="pipeline-grid">
+
+
+<div>
+
+<span>
+
+01
+
+</span>
+
+<h3>
+
+Intent Extraction
+
+</h3>
+
+</div>
+
+
+<div>
+
+<span>
+
+02
+
+</span>
+
+<h3>
+
+System Design
+
+</h3>
+
+</div>
+
+
+<div>
+
+<span>
+
+03
+
+</span>
+
+<h3>
+
+Schema Generation
+
+</h3>
+
+</div>
+
+
+
+<div>
+
+<span>
+
+04
+
+</span>
+
+<h3>
+
+Validation + Repair
+
+</h3>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+<section class="runtime-section">
+
+<p class="section-mini">
+
+Runtime Visualization
+
+</p>
+
+<h2>
+
+Runtime City
+
+</h2>
+
+
+<div class="runtime-city">
+
+<div class="building b1"></div>
+<div class="building b2"></div>
+<div class="building b3"></div>
+<div class="building b4"></div>
+
+<div class="road"></div>
+
+</div>
+
+
+<pre id="output">
+
+Generated output appears here...
+
+</pre>
+
+
+</section>
+
+
+
+
+<section class="universe-section">
+
+<p class="section-mini">
+
+Architecture Universes
+
+</p>
+
+<h2>
+
+Choose a Build Strategy
+
+</h2>
+
+
+<div class="universe-grid">
+
+
+<div>
+
+<span>
+
+Universe A
+
+</span>
+
+<h3>
+
+Lean
+
+</h3>
+
+</div>
+
+
+<div>
+
+<span>
+
+Universe B
+
+</span>
+
+<h3>
+
+Balanced
+
+</h3>
+
+</div>
+
+
+<div>
+
+<span>
+
+Universe C
+
+</span>
+
+<h3>
+
+High Integrity
+
+</h3>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section id="pricing">
+
+<div class="pricing-top">
+
+<div>
+
+<p class="section-mini">
+
+Plans
+
+</p>
+
+<h2>
+
+Cost vs Quality
+
+</h2>
+
+</div>
+
+
+<div class="toggle">
+
+<button>
+
+Monthly
+
+</button>
+
+<button>
+
+Yearly
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="plan-grid">
+
+<div class="plan-card">
+
+<h3>
+
+Prototype
+
+</h3>
+
+<h1>
+
+₹0
+
+</h1>
+
+<p>
+
+Fast execution mode with lightweight validation
+
+</p>
+
+</div>
+
+
+
+<div class="plan-card">
+
+<h3>
+
+Studio
+
+</h3>
+
+<h1>
+
+₹899
+
+</h1>
+
+<p>
+
+Balanced quality with selective repair
+
+</p>
+
+</div>
+
+
+
+<div class="plan-card">
+
+<h3>
+
+Integrity
+
+</h3>
+
+<h1>
+
+₹2499
+
+</h1>
+
+<p>
+
+High-quality mode with deeper validation
+
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+<section id="faq">
+
+<p class="section-mini">
+
+Frequently Asked Questions
+
+</p>
+
+<h2>
+
+Questions
+
+</h2>
+
+
+<details open>
+
+<summary>
+
+Is this prompt engineering?
+
+</summary>
+
+<p>
+
+No. It uses staged generation, validation and repair.
+
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+
+How is runtime validated?
+
+</summary>
+
+<p>
+
+The runtime simulator checks pages, APIs and database execution.
+
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+
+What makes this different?
+
+</summary>
+
+<p>
+
+Brain maps, runtime city, confidence scoring and repair logic.
+
+</p>
+
+</details>
+
+
+</section>
+
+
+
+<script src="/app.js"></script>
+
+</body>
+
+</html>
