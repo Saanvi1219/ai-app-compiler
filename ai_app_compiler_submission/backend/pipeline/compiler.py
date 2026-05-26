@@ -350,26 +350,46 @@ def compile_app(prompt: str):
         (time.time()-start)*1000,
         2
     )
-
-    confidence = 95
-
+    if confidence = 95
     if len(
         intent.get(
-            "assumptions",
+            "ambiguity",
             []
-        )
-    ) > 0:
-
-        confidence -= 5
-
-    confidence = max(
-        confidence,
-        0
-    )
-
-    chaos = 100-confidence
-
-    return {
+            )
+            ) > 0:
+        confidence -= 35
+        if len(
+            intent.get(
+                "conflicts",
+                []
+                )
+                ) > 0
+        confidence -= 20
+        if len(
+            validation.get(
+                "errors",
+                []
+                  )
+                  ) > 0:
+            confidence -= 25
+            if len(
+                intent.get(
+                    "assumptions",
+                    []
+                    )
+                    ) > 0:
+                confidence -= 5
+                confidence = max(
+                    confidence,
+                    30
+                    )
+                quality="strong"
+            if confidence<80:
+                quality="moderate"
+                if confidence<60:
+                    quality="weak"
+                    chaos=100-confidence
+                    return {
 
         "pipeline": [
 
@@ -443,8 +463,10 @@ def compile_app(prompt: str):
             "confidence": confidence,
 
             "chaos": chaos,
+            "quality":quality,
 
             "recommendation":
+
 
             "Prompt quality is strong"
 
