@@ -351,44 +351,42 @@ def compile_app(prompt: str):
         2
     )
     confidence = 95
-    if len(
-        intent.get(
-            "ambiguity",
+    ambiguity = intent.get(
+        "ambiguity",
+        []
+        )
+    conflicts = intent.get(
+        "conflicts",
+        []
+        )
+    assumptions = intent.get( 
+                             "assumptions",
+                             []
+                             )
+    validation_errors = []
+    if validation:
+        validation_errors = validation.get(
+            "errors",
             []
             )
-            ) > 0:
-        confidence -= 35
-        if len(
-            intent.get(
-                "conflicts",
-                []
-                )
-                ) > 0: 
-            confidence  -= 20
-            if len(
-                validation.get(
-                    "errors",
-                    []
-                    )
-                    ) > 0:
-                confidence -= 25
-                if len(
-                    intent.get(
-                        "assumptions",
-                        []
-                        )
-                        ) > 0:
-                    confidence -= 5
-                    confidence = max(
-                        confidence,
-                        30
-                        )
-                    quality="strong"
-                    if confidence<80:
-                        quality="moderate"
-                        if confidence<60:
-                            quality="weak"
-                            chaos=100-confidence
+        if len(ambiguity) > 0:
+            confidence -= 35
+            if len(conflicts) > 0:
+                confidence -= 20
+                if len(validation_errors) > 0:
+                    confidence -= 25
+                    if len(assumptions) > 0:
+                        confidence -= 5
+                        confidence = max(
+                            confidence,
+                            30
+                            )
+                        quality = "strong"
+                        if confidence < 80:
+                            quality = "moderate"
+                            if confidence < 60:
+                                quality = "weak"
+                                chaos = 100 - confidence
                             return {
 
         "pipeline": [
