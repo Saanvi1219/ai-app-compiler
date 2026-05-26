@@ -28,8 +28,7 @@ output.innerText=
 try{
 
 const response=await fetch(
-"https://ai-app-compiler-7qlm.onrender.com/generate",
-{
+"https://ai-app-compiler-1-6q6t.onrender.com/generate",{
 
 method:"POST",
 
@@ -49,6 +48,25 @@ prompt:promptInput.value
 
 
 const data=await response.json();
+
+
+if(!data){
+
+throw new Error(
+"No response from backend"
+);
+
+}
+
+
+if(!data.pipeline){
+
+throw new Error(
+"Pipeline data missing"
+);
+
+}
+
 
 latestData=data;
 
@@ -72,7 +90,9 @@ generateBtn.innerText=
 
 output.innerText=
 "Error:\n\n"+
-error;
+error.message;
+
+console.log(error);
 
 }
 
@@ -288,7 +308,7 @@ try{
 
 const response=
 await fetch(
-"https://ai-app-compiler-7qlm.onrender.com/evaluate",
+"https://ai-app-compiler-1-6q6t.onrender.com/evaluate",
 );
 
 
