@@ -350,7 +350,7 @@ def compile_app(prompt: str):
         (time.time()-start)*1000,
         2
     )
-    if confidence = 95
+    confidence = 95
     if len(
         intent.get(
             "ambiguity",
@@ -363,33 +363,33 @@ def compile_app(prompt: str):
                 "conflicts",
                 []
                 )
-                ) > 0
-        confidence -= 20
-        if len(
-            validation.get(
-                "errors",
-                []
-                  )
-                  ) > 0:
-            confidence -= 25
+                ) > 0: 
+            confidence  -= 20
             if len(
-                intent.get(
-                    "assumptions",
+                validation.get(
+                    "errors",
                     []
                     )
                     ) > 0:
-                confidence -= 5
-                confidence = max(
-                    confidence,
-                    30
-                    )
-                quality="strong"
-            if confidence<80:
-                quality="moderate"
-                if confidence<60:
-                    quality="weak"
-                    chaos=100-confidence
-                    return {
+                confidence -= 25
+                if len(
+                    intent.get(
+                        "assumptions",
+                        []
+                        )
+                        ) > 0:
+                    confidence -= 5
+                    confidence = max(
+                        confidence,
+                        30
+                        )
+                    quality="strong"
+                    if confidence<80:
+                        quality="moderate"
+                        if confidence<60:
+                            quality="weak"
+                            chaos=100-confidence
+                            return {
 
         "pipeline": [
 
