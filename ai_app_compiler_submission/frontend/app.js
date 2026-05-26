@@ -59,13 +59,6 @@ throw new Error(
 }
 
 
-if(!data.pipeline){
-
-throw new Error(
-"Pipeline data missing"
-);
-
-}
 
 
 latestData=data;
