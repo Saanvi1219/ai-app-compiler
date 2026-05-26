@@ -1,4 +1,3 @@
-
 import json
 from pathlib import Path
 from collections import Counter
@@ -40,7 +39,7 @@ def run_evaluation():
 
     total_retries = 0
 
-    failure_types=[]
+    failure_types = []
 
 
     for prompt in prompts:
@@ -51,33 +50,66 @@ def run_evaluation():
         )
 
 
-        metrics=result["metrics"]
+        # prevent crash if compile_app returns None
+        if result is None:
+
+            results.append({
+
+                "prompt": prompt,
+
+                "success": False,
+
+                "latency_ms": 0,
+
+                "repair_count": 0
+
+            })
+
+            continue
+
+
+        metrics = result.get(
+            "metrics",
+            {}
+        )
 
 
         results.append({
 
-            "prompt":prompt,
+            "prompt": prompt,
 
             "success":
-            metrics["success"],
+            metrics.get(
+                "success",
+                False
+            ),
 
             "latency_ms":
-            metrics["latency_ms"],
+            metrics.get(
+                "latency_ms",
+                0
+            ),
 
             "repair_count":
-            metrics["repair_count"]
+            metrics.get(
+                "repair_count",
+                0
+            )
 
         })
 
 
-        if metrics["success"]:
+        if metrics.get(
+            "success",
+            False
+        ):
 
-            success+=1
+            success += 1
 
 
         else:
 
-            errors=(
+            errors = (
                 result
                 .get(
                     "validation",
@@ -92,22 +124,35 @@ def run_evaluation():
 
             for error in errors:
 
-                failure_types.append(
+                if isinstance(
+                    error,
+                    dict
+                ):
 
-                    error["type"]
+                    failure_types.append(
 
-                )
+                        error.get(
+                            "type",
+                            "unknown"
+                        )
+
+                    )
 
 
         total_latency += (
-            metrics["latency_ms"]
+            metrics.get(
+                "latency_ms",
+                0
+            )
         )
 
 
         total_retries += (
-            metrics["retries"]
+            metrics.get(
+                "retries",
+                0
+            )
         )
-
 
 
     total = len(prompts)
@@ -121,21 +166,21 @@ def run_evaluation():
 
         "success_rate":
         round(
-            (success/total)*100,
+            (success / total) * 100,
             2
         ),
 
 
         "average_latency_ms":
         round(
-            total_latency/total,
+            total_latency / total,
             2
         ),
 
 
         "average_retries":
         round(
-            total_retries/total,
+            total_retries / total,
             2
         ),
 
@@ -153,4 +198,3 @@ def run_evaluation():
         results
 
     }
-
