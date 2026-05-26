@@ -186,20 +186,6 @@ data.metrics?.retries
 0
 );
 
-
-
-
-
-if(
-data.insight
-){
-
-updateMeters(data);
-
-}
-
-}
-
 document.getElementById(
 "compileStatus"
 ).innerText=
@@ -215,7 +201,6 @@ data.metrics?.success
 "Compilation Failed";
 
 
-
 document.getElementById(
 "riskLevel"
 ).innerText=
@@ -223,7 +208,6 @@ document.getElementById(
 data.app?.risk
 ||
 "Standard";
-
 
 
 document.getElementById(
@@ -238,7 +222,6 @@ data.insight?.confidence
 +"%";
 
 
-
 document.getElementById(
 "executionMode"
 ).innerText=
@@ -249,6 +232,21 @@ data.adaptive_execution
 ||
 
 "Fast Mode";
+
+
+
+if(
+data.insight
+){
+
+updateMeters(data);
+
+}
+
+}
+
+
+
 
 
 
