@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pathlib import Path
 
@@ -9,6 +10,16 @@ from backend.evaluation.evaluator import run_evaluation
 
 app = FastAPI(
     title="Compiler Studio"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://ai-app-compiler-b5yf.vercel.app"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 BASE_DIR=Path(__file__).resolve().parent.parent
