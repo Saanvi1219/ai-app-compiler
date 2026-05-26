@@ -8,9 +8,11 @@ from pathlib import Path
 from backend.pipeline.compiler import compile_app
 from backend.evaluation.evaluator import run_evaluation
 
+
 app = FastAPI(
     title="Compiler Studio"
 )
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,47 +24,189 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-BASE_DIR=Path(__file__).resolve().parent.parent
+
+BASE_DIR = Path(
+    __file__
+).resolve().parent.parent
+
 
 app.mount(
     "/frontend",
-    StaticFiles(directory=BASE_DIR/"frontend"),
+    StaticFiles(
+        directory=BASE_DIR/"frontend"
+    ),
     name="frontend"
 )
 
-class GenerateRequest(BaseModel):
+
+class GenerateRequest(
+    BaseModel
+):
+
     prompt:str
 
 
-@app.get("/",response_class=HTMLResponse)
+
+@app.get(
+    "/",
+    response_class=HTMLResponse
+)
 def home():
 
-    html=(BASE_DIR/"frontend"/"index.html").read_text(
+    html = (
+        BASE_DIR/
+        "frontend"/
+        "index.html"
+    ).read_text(
+
         encoding="utf-8"
+
     )
 
-    html=html.replace(
+
+    html = html.replace(
+
         '/style.css',
+
         '/frontend/style.css'
+
     )
 
-    html=html.replace(
+
+    html = html.replace(
+
         '/app.js',
+
         '/frontend/app.js'
+
     )
+
 
     return html
 
 
 
+
 @app.post("/generate")
 def generate(
-request:GenerateRequest
+    request:GenerateRequest
 ):
 
-    return compile_app(
-        request.prompt
-    )
+    try:
+
+        result = compile_app(
+            request.prompt
+        )
+
+        if result is None:
+
+            return {
+
+                "pipeline":[],
+
+                "app":{},
+
+                "validation":{
+
+                    "valid":False,
+
+                    "errors":[
+
+                        {
+
+                            "type":"generation_error",
+
+                            "message":
+                            "No architecture generated"
+
+                        }
+
+                    ]
+
+                },
+
+                "repair_log":[],
+
+                "runtime":{},
+
+                "insight":{
+
+                    "confidence":0,
+
+                    "chaos":100
+
+                },
+
+                "metrics":{
+
+                    "success":False,
+
+                    "latency_ms":0,
+
+                    "retries":0,
+
+                    "repair_count":0
+
+                }
+
+            }
+
+
+        return result
+
+
+    except Exception as e:
+
+        return {
+
+            "pipeline":[],
+
+            "app":{},
+
+            "validation":{
+
+                "valid":False,
+
+                "errors":[
+
+                    {
+
+                        "type":"server_error",
+
+                        "message":str(e)
+
+                    }
+
+                ]
+
+            },
+
+            "repair_log":[],
+
+            "runtime":{},
+
+            "insight":{
+
+                "confidence":0,
+
+                "chaos":100
+
+            },
+
+            "metrics":{
+
+                "success":False,
+
+                "latency_ms":0,
+
+                "retries":0,
+
+                "repair_count":0
+
+            }
+
+        }
+
 
 
 
